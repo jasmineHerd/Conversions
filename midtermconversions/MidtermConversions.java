@@ -46,9 +46,10 @@ public class MidtermConversions {
                 default:
                     System.out.println("Error");
                     break;}
+            if(usingk == true){
 
             double v = cvtype;
-            showDegreesK(v);
+            showDegreesK(v);}
          cvtype = getCVType();
         }
 
