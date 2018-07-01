@@ -15,25 +15,23 @@ public class MidtermConversions {
 
     static Scanner sc = new Scanner(System.in);
     static boolean usingk;
+    
     public static void main(String[] args) {
         int cvtype;
-        //display welcome message
+
         System.out.println("Welcome to the conversion calculator");
-
-        //obtain 'display k?' Anser and set -->usingK boolean
-        //System.out.println("Display K?");
-        //usingk = sc.nextBoolean();
-        
-        
-
-
-
+       
+        System.out.println("On Temp conversions, would you also like to see "
+                + "degrees Kelvin (K) in the results? (Y/N): ");
+       if(sc.nextLine().substring(0,1).equalsIgnoreCase("Y")){
+           usingk = true;
+       }else{
+           usingk = false;
+       }
+       
 
         
         cvtype = getCVType();
-
-
-
         while(cvtype != 0){
             switch(cvtype){
                 case 1:
@@ -48,9 +46,13 @@ public class MidtermConversions {
                 default:
                     System.out.println("Error");
                     break;}
-            cvtype = getCVType();                
-        
-    }
+
+            double v = cvtype;
+            showDegreesK(v);
+         cvtype = getCVType();
+        }
+
+
        System.out.println("Thanks for using the conversion calculator");
 
     }//end main
@@ -66,7 +68,7 @@ public class MidtermConversions {
                             + "(1=mi-to-km, 2=oz-to-g, 3=f-to-c, 0=end)");
                     cv = sc.nextInt();
                    if(cv<0 || (cv > 3)){
-                        System.out.print("Conversion type ERROR.");
+                        System.out.print("Conversion type ERROR.\n");
                     }
 
                }catch(Exception e){
@@ -84,24 +86,46 @@ public class MidtermConversions {
 
 
    public static double  getValue(String convtype){
-        boolean badval;
-        double v;
+        boolean badval = true;
+        double v = 0;
 
 
-        //do{
-           // try{
-                System.out.print("convtype TEMP?");
+        do{
+           try{
+                System.out.println("Enter your "+ convtype);
                 v = sc.nextDouble();
                 badval = false;
-                /*}catch(Exception e){
-                   System.out.println("Illegal input: positive numbers over 3 only");
+                }catch(Exception e){
+                   System.out.print("Illegal input: positive numbers over 3 only");
                    sc.nextLine();
                   badval = false;
                }
 
-            }while(badval=true);*/
+            }while(badval=false);
         return v;
     }
+   
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 
    public static void MitoKm(){
        double mi,km;
@@ -110,21 +134,21 @@ public class MidtermConversions {
        System.out.println(km); 
 
    }
-   /*
+  
       public static void OztoG(){
        double oz,gr;
-       oz = getValue();
+       oz = getValue("ounces");
        gr = oz * 28.3495;
-       
+       System.out.println(oz); 
 
    }
       public static void FtoC(){
        double tF,tC;
-       tF = getValue(faren);
-       tC = (tF-32) * (5/9);
-       return tC;
+       tF = getValue("Farenhite");
+       tC = (tF - 32) * (5/9);
+       System.out.println(tC); 
 
-   }*/
+   }
 public static void showDegreesK(double c){
     double tK;
 
@@ -133,7 +157,7 @@ public static void showDegreesK(double c){
         System.out.println("Error message");
 
     }else{
-        System.out.println(tK);
+        System.out.println("Your temperature is also"+tK+"KELVIN");
     }
 
 }
