@@ -5,6 +5,7 @@
  */
 package midtermconversions;
 
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 /**
@@ -19,7 +20,7 @@ public class MidtermConversions {
     public static void main(String[] args) {
         int cvtype;
 
-        System.out.println("Welcome to the conversion calculator");
+        System.out.println("Welcome to the Standard-to-Metric Converter");
        
         System.out.println("On Temp conversions, would you also like to see "
                 + "degrees Kelvin (K) in the results? (Y/N): ");
@@ -46,10 +47,10 @@ public class MidtermConversions {
                 default:
                     System.out.println("Error");
                     break;}
-            if(usingk == true){
-
-            double v = cvtype;
+            if(usingk == true && cvtype == 3){
+            double v = cvtype;           
             showDegreesK(v);}
+            
          cvtype = getCVType();
         }
 
@@ -123,42 +124,48 @@ public class MidtermConversions {
    
    
    
-   
+
    
    
    
 
    public static void MitoKm(){
        double mi,km;
-       mi = getValue("miles");
-       km = mi * 1.60934;
-       System.out.println(km); 
+       mi = getValue("Miles");
+       km = 1.60934 * mi ;
+       if (km%1==0){
+           km=(int)km;
+                   
+       }
+       System.out.println("The distance of "+ mi +
+               " mile(s) converted to kilometer(s)= "+ km); 
 
    }
   
       public static void OztoG(){
        double oz,gr;
-       oz = getValue("ounces");
-       gr = oz * 28.3495;
-       System.out.println(oz); 
+       oz = getValue("Ounces");
+       gr = 28.3495 * oz ;
+       System.out.println("The measurement of " +oz+ "to grams= "+gr ); 
 
    }
       public static void FtoC(){
        double tF,tC;
-       tF = getValue("Farenhite");
-       tC = (tF - 32) * (5/9);
-       System.out.println(tC); 
+       tF = getValue("Farenhite temperature");
+       tC =  (5/9)*(tF - 32) ;
+       System.out.println("A temp of "+tF+
+               " Farenheit converted to Celsius= "+ tC ); 
 
    }
 public static void showDegreesK(double c){
     double tK;
 
-    tK = c +273.15;
+    tK = c + 273.15;
     if(tK<0){
-        System.out.println("Error message");
+        System.out.println("This temperature is not possible, as it is below 0 K");
 
     }else{
-        System.out.println("Your temperature is also"+tK+"KELVIN");
+        System.out.println("This is also a temperature of: "+tK+" K");
     }
 
 }
