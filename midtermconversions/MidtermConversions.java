@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class MidtermConversions {
 
     static Scanner sc = new Scanner(System.in);
-    static boolean usingk;
+    static boolean usingk = false;
     
     public static void main(String[] args) {
         int cvtype;
@@ -26,8 +26,6 @@ public class MidtermConversions {
                 + "degrees Kelvin (K) in the results? (Y/N): ");
        if(sc.nextLine().substring(0,1).equalsIgnoreCase("Y")){
            usingk = true;
-       }else{
-           usingk = false;
        }
        
 
@@ -47,9 +45,7 @@ public class MidtermConversions {
                 default:
                     System.out.println("Error");
                     break;}
-            if(usingk == true && cvtype == 3){
-            double v = cvtype;           
-            showDegreesK(v);}
+   
             
          cvtype = getCVType();
         }
@@ -63,7 +59,7 @@ public class MidtermConversions {
 
 
     public static int getCVType(){
-        int cv;
+        int cv;//conversion type
               do{
                 try{
                     System.out.print("Select  conversion type"
@@ -87,56 +83,12 @@ public class MidtermConversions {
     }
 
 
-   public static double  getValue(String convtype){
-        boolean badval = true;
-        double v = 0;
 
-
-        do{
-           try{
-                System.out.println("Enter your "+ convtype);
-                v = sc.nextDouble();
-                badval = false;
-                }catch(Exception e){
-                   System.out.print("Illegal input: positive numbers over 3 only");
-                   sc.nextLine();
-                  badval = false;
-               }
-
-            }while(badval=false);
-        return v;
-    }
-   
-
-
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-
-   
-   
-   
 
    public static void MitoKm(){
        double mi,km;
        mi = getValue("Miles");
        km = 1.60934 * mi ;
-       if (km%1==0){
-           km=(int)km;
-                   
-       }
        System.out.println("The distance of "+ mi +
                " mile(s) converted to kilometer(s)= "+ km); 
 
@@ -152,16 +104,41 @@ public class MidtermConversions {
       public static void FtoC(){
        double tF,tC;
        tF = getValue("Farenhite temperature");
-       tC =  (5/9)*(tF - 32) ;
+      tC = ( tF - 32.0) * (5.0 / 9.0);
        System.out.println("A temp of "+tF+
-               " Farenheit converted to Celsius= "+ tC ); 
+               " Farenheit converted to Celsius= "+ tC );
+       if(usingk == true){
+              showDegreesK(tC);}
+       
 
    }
+      
+    public static double  getValue(String convtype){
+        boolean badval = true;
+        double v = 0;
+
+
+        do{
+           try{
+                System.out.println("Enter your "+ convtype);
+                v = sc.nextDouble();
+                badval = false;
+                }catch(Exception e){
+                   System.out.print("Illegal input: positive numbers over 3 only");
+                   sc.nextLine();
+                  badval = true;
+               }
+
+            }while(badval);
+        return v;
+    }  
+         
+         
 public static void showDegreesK(double c){
     double tK;
 
-    tK = c + 273.15;
-    if(tK<0){
+    tK = c + (273.15);
+    if(tK < 0){
         System.out.println("This temperature is not possible, as it is below 0 K");
 
     }else{
