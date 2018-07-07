@@ -5,7 +5,7 @@
  */
 package midtermconversions;
 
-import java.text.NumberFormat;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 /**
@@ -16,6 +16,7 @@ public class MidtermConversions {
 
     static Scanner sc = new Scanner(System.in);
     static boolean usingk = false;
+    static DecimalFormat df = new DecimalFormat("#.00");
     
     public static void main(String[] args) {
         int cvtype;
@@ -73,7 +74,6 @@ public class MidtermConversions {
                    System.out.println("Illegal input: positive numbers over 3 only");
                    sc.nextLine();
                    cv = -1;
-
                }
 
             }while(cv < 0 || cv >3);
@@ -89,8 +89,9 @@ public class MidtermConversions {
        double mi,km;
        mi = getValue("Miles");
        km = 1.60934 * mi ;
+       
        System.out.println("The distance of "+ mi +
-               " mile(s) converted to kilometer(s)= "+ km); 
+               " mile(s) converted to kilometer(s)= "+ df.format(km)); 
 
    }
   
@@ -98,31 +99,49 @@ public class MidtermConversions {
        double oz,gr;
        oz = getValue("Ounces");
        gr = 28.3495 * oz ;
-       System.out.println("The measurement of " +oz+ "to grams= "+gr ); 
 
+       System.out.println("The measurement of " +oz+ " to grams= "+
+               df.format(gr));
+       
+       
    }
+      
       public static void FtoC(){
        double tF,tC;
        tF = getValue("Farenhite temperature");
       tC = ( tF - 32.0) * (5.0 / 9.0);
+      
+      if(tC%1==0){
+          System.out.println("A temp of " + tF + " Farenheit converted to Celsius "
+                  +String.format("%.0f",tC));
+      }else{
+ 
        System.out.println("A temp of "+tF+
-               " Farenheit converted to Celsius= "+ tC );
+               " Farenheit converted to Celsius= " +
+               df.format(tC) );}
+ 
        if(usingk == true){
               showDegreesK(tC);}
        
 
    }
       
+
     public static double  getValue(String convtype){
         boolean badval = true;
         double v = 0;
-
+        
 
         do{
            try{
-                System.out.println("Enter your "+ convtype);
+                System.out.print("Enter your "+ convtype + ":");
                 v = sc.nextDouble();
-                badval = false;
+                
+                if(!convtype.equals("Farenhite temperature")&& v < 0){
+                    System.out.println("Input must be positive");
+                }else{
+                badval = false;}
+                
                 }catch(Exception e){
                    System.out.print("Illegal input: positive numbers over 3 only");
                    sc.nextLine();
@@ -142,11 +161,11 @@ public static void showDegreesK(double c){
         System.out.println("This temperature is not possible, as it is below 0 K");
 
     }else{
-        System.out.println("This is also a temperature of: "+tK+" K");
+        System.out.println("This is also a temperature of: "+
+                df.format(tK)+" K");
     }
 
 }
-
 
 
 
